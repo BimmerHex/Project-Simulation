@@ -23,7 +23,7 @@ namespace Game.Interaction.Test
         }
 
         // 2. Emir Geldiğinde
-        public void Interact(Game.Player.FirstPersonController player)
+        public void Interact(IInteractor player)
         {
             Debug.Log("Kutu ile etkileşime girildi!");
             

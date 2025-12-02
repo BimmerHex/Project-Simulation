@@ -23,6 +23,6 @@ namespace Game.Interaction
         InteractionStatus GetInteractionStatus(bool hasItemInHand);
 
         // 2. Emir: Etkileşimi başlat! ("E" tuşuna basıldığında çağrılır)
-        void Interact(Game.Player.FirstPersonController player);
+        void Interact(IInteractor player);
     }
 }

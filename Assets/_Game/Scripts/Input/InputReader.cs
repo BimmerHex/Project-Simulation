@@ -28,12 +28,12 @@ namespace Game.Inputs
                 _gameInput.Player.SetCallbacks(this);
             }
             
-            _gameInput.Player.Enable();
+            _gameInput.Enable();
         }
 
         private void OnDisable()
         {
-            _gameInput?.Player.Disable();
+            _gameInput?.Disable();
         }
 
         public void OnMove(InputAction.CallbackContext context) => MoveInput = context.ReadValue<Vector2>();

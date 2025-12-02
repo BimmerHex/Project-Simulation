@@ -22,11 +22,13 @@ namespace Game.Interaction
 
         // Cache (Önbellek) - Her frame GetComponent yapmamak için
         private IInteractable _currentInteractable;
-        private bool _hasInteractedThisFrame;
 
         // Player'ın elinin dolu olup olmadığını Controller'dan öğreneceğiz (Şimdilik manuel false)
         // İleride burayı _playerController.HasItem() gibi bir şeye bağlayacağız.
-        private bool _isHandFull = false; 
+        private bool _isHandFull = false;
+
+        private bool _isPromptActive = false; // Panel şu an açık mı?
+        private string _currentMessage = "";  // Şu an ne yazıyor?
 
         private void Awake()
         {
@@ -116,8 +118,23 @@ namespace Game.Interaction
 
         private void ShowPrompt(bool show, string message = "")
         {
-            if (_promptPanel != null) _promptPanel.SetActive(show);
-            if (_promptText != null) _promptText.text = message;
+            if (show == _isPromptActive && message == _currentMessage) return;
+
+            // Durumu güncelle
+            _isPromptActive = show;
+            _currentMessage = message;
+
+            if (_promptPanel != null)
+            {
+                // Sadece durum değiştiğinde SetActive çağır
+                if (_promptPanel.activeSelf != show) 
+                    _promptPanel.SetActive(show);
+            }
+
+            if (_promptText != null && show) // Sadece panel açılacaksa yazıyı değiştir
+            {
+                _promptText.text = message;
+            }
         }
         
         // Bu metodu ileride Inventory sistemi çağırıp "Elim doldu" diyecek.
